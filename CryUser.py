@@ -1,4 +1,6 @@
-from Crypto.Cipher import AES
+from Crypto.Cipher import AES, PKCS1_v1_5
+from Crypto.PublicKey import RSA
+import base64 as b64
 from Crypto.Random import get_random_bytes
 from Crypto.Util.Padding import pad, unpad
 import tkinter as tk
@@ -19,6 +21,7 @@ intro.grid(column = 0, row = 0, padx = 75, pady=20)
 # SNIPPET FOR SELECTING THE FILE
 def select_file():
     window.filename = fd.askopenfilename(title = "Choose the file", initialdir="/home")
+
 open_button = tk.Button(window, text="Choose the file", command=select_file)
 open_button.grid(column=0, row=1, pady=10)
 
@@ -67,8 +70,56 @@ def AES_clicked():
 AES_button = tk.Button(window, text="AES",bg = "red", command=AES_clicked, font=("Helvetica", 16))
 AES_button.grid(column=0, row=2)
 
-RSA_button = tk.Button(window, text="RSA", bg = "red", font=("Helvetica", 16))
+def RSA_clicked():
+    print(window.filename)
+    intro.destroy()
+    introduce = tk.Label(text = "CHOOSE THE MODE", font=("Helvetica", 16))
+    introduce.grid(column = 0, row = 0, padx=75, pady=20)
+    AES_button.destroy()
+    RSA_button.destroy()
+
+    def ENC_clicked():
+        with open(window.filename, "rb") as f:
+            data = f.read()
+        key = RSA.generate(2048)
+
+        with open(window.filename + "_rsakey.pem", "wb") as f:
+            f.write(key.export_key("PEM"))
+        f = open(window.filename + "_rsakey.pem", "r")
+        key = RSA.importKey(f.read())
+        f.close()
+
+        cipher = PKCS1_v1_5.new(key)
+        c_text = cipher.encrypt(data)
+
+        with open(window.filename, "wb") as f:
+            f.write(c_text)
+
+    def DEC_clicked():
+        with open(window.filename, "rb") as f:
+            data = f.read()
+
+        with open(window.filename + "_rsakey.pem", "rb") as f:
+            key = f.read()
+
+        print(len(data))
+        privKey = RSA.importKey(key)
+        decipher = PKCS1_v1_5.new(privKey)
+        dec_data = decipher.decrypt(data, sentinel=None)
+        with open(window.filename, "wb") as f:
+            f.write(dec_data)
+        print(len(window.filename))
+
+    ENC_button = tk.Button(window, text="ENC", bg="red", command=ENC_clicked, font=("Helvetica", 16))
+    ENC_button.grid(column = 0, row = 2)
+    DEC_button = tk.Button(window, text="DEC", bg = "red", command = DEC_clicked, font=("Helvetica", 16))
+    DEC_button.grid(column=0, row=3)
+
+AES_button = tk.Button(window, text="AES",bg = "red", command=AES_clicked, font=("Helvetica", 16))
+AES_button.grid(column=0, row=2)
+RSA_button = tk.Button(window, text="RSA",bg = "red", command=RSA_clicked, font=("Helvetica", 16))
 RSA_button.grid(column=0, row=3)
+
 
 
 window.mainloop()
