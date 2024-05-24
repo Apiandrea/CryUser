@@ -18,6 +18,8 @@ window.resizable(False, False)
 intro = tk.Label(text = "CHOOSE THE SYSTEM", font=("Helvetica", 16))
 intro.grid(column = 0, row = 0, padx = 75, pady=20)
 
+warning = tk.Label(text = "WARNING!\nBefore using the encrypt function save a\ncopy of the file that you want to encrypt", bg="red")
+
 # SNIPPET FOR SELECTING THE FILE
 def select_file():
     window.filename = fd.askopenfilename(title = "Choose the file", initialdir="/home")
@@ -28,8 +30,8 @@ open_button.grid(column=0, row=1, pady=10)
 def AES_clicked():
     print(window.filename)
     intro.destroy()
-    introduce = tk.Label(text = "CHOOSE THE MODE", font=("Helvetica", 16))
-    introduce.grid(column = 0, row = 0, padx = 75, pady=20)
+    introduce = tk.Label(text = "AES selected", font=("Helvetica", 16))
+    introduce.grid(column = 0, row = 0, padx = 100, pady=20)
     AES_button.destroy()
     RSA_button.destroy()
 
@@ -73,8 +75,8 @@ AES_button.grid(column=0, row=2)
 def RSA_clicked():
     print(window.filename)
     intro.destroy()
-    introduce = tk.Label(text = "CHOOSE THE MODE", font=("Helvetica", 16))
-    introduce.grid(column = 0, row = 0, padx=75, pady=20)
+    introduce = tk.Label(text = "RSA selected", font=("Helvetica", 16))
+    introduce.grid(column = 0, row = 0, padx=100, pady=20)
     AES_button.destroy()
     RSA_button.destroy()
 
@@ -119,6 +121,8 @@ AES_button = tk.Button(window, text="AES",bg = "red", command=AES_clicked, font=
 AES_button.grid(column=0, row=2)
 RSA_button = tk.Button(window, text="RSA",bg = "red", command=RSA_clicked, font=("Helvetica", 16))
 RSA_button.grid(column=0, row=3)
+
+warning.grid(column=0, row=4)
 
 
 
