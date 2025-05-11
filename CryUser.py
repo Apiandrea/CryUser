@@ -18,7 +18,7 @@ window.resizable(False, False)
 intro = tk.Label(text = "CHOOSE THE SYSTEM", font=("Helvetica", 16))
 intro.grid(column = 0, row = 0, padx = 75, pady=20)
 
-warning = tk.Label(text = "WARNING!\nBefore using the encrypt function save a\ncopy of the file that you want to encrypt", bg="red")
+warning = tk.Label(text = "WARNING!\nBefore using the encrypt function save a\ncopy of the file that you want to encrypt", bg="white")
 
 # SNIPPET FOR SELECTING THE FILE
 def select_file():
@@ -64,12 +64,12 @@ def AES_clicked():
         with open(window.filename, "wb") as f:
             f.write(decrypted_data)
 
-    ENC_button = tk.Button(window, text="ENC", bg = "red", command = ENC_clicked, font=("Helvetica", 16))
+    ENC_button = tk.Button(window, text="ENC", bg = "white", command = ENC_clicked, font=("Helvetica", 16))
     ENC_button.grid(column=0, row=2)
-    DEC_button = tk.Button(window, text="DEC", bg = "red", command = DEC_clicked, font=("Helvetica", 16))
+    DEC_button = tk.Button(window, text="DEC", bg = "white", command = DEC_clicked, font=("Helvetica", 16))
     DEC_button.grid(column=0, row=3)
 
-AES_button = tk.Button(window, text="AES",bg = "red", command=AES_clicked, font=("Helvetica", 16))
+AES_button = tk.Button(window, text="AES",bg = "white", command=AES_clicked, font=("Helvetica", 16))
 AES_button.grid(column=0, row=2)
 
 def RSA_clicked():
@@ -112,14 +112,14 @@ def RSA_clicked():
             f.write(dec_data)
         print(len(window.filename))
 
-    ENC_button = tk.Button(window, text="ENC", bg="red", command=ENC_clicked, font=("Helvetica", 16))
+    ENC_button = tk.Button(window, text="ENC", bg="white", command=ENC_clicked, font=("Helvetica", 16))
     ENC_button.grid(column = 0, row = 2)
-    DEC_button = tk.Button(window, text="DEC", bg = "red", command = DEC_clicked, font=("Helvetica", 16))
+    DEC_button = tk.Button(window, text="DEC", bg = "white", command = DEC_clicked, font=("Helvetica", 16))
     DEC_button.grid(column=0, row=3)
 
-AES_button = tk.Button(window, text="AES",bg = "red", command=AES_clicked, font=("Helvetica", 16))
+AES_button = tk.Button(window, text="AES",bg = "white", command=AES_clicked, font=("Helvetica", 16))
 AES_button.grid(column=0, row=2)
-RSA_button = tk.Button(window, text="RSA",bg = "red", command=RSA_clicked, font=("Helvetica", 16))
+RSA_button = tk.Button(window, text="RSA",bg = "white", command=RSA_clicked, font=("Helvetica", 16))
 RSA_button.grid(column=0, row=3)
 
 warning.grid(column=0, row=4)
